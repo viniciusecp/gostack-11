@@ -24,7 +24,7 @@ usersRouter.post('/', async (request, response) => {
     updated_at: user.updated_at,
   };
 
-  return response.json(userWithoutPassword);
+  return response.json({ user: userWithoutPassword });
 });
 
 usersRouter.patch(
@@ -48,7 +48,7 @@ usersRouter.patch(
       updated_at: user.updated_at,
     };
 
-    return response.json(userWithoutPassword);
+    return response.json({ user: userWithoutPassword });
   },
 );
 
