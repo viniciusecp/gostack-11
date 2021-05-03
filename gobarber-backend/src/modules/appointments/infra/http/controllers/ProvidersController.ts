@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import ListProvidersService from '@modules/appointments/services/ListProvidersService';
 
@@ -11,15 +12,6 @@ export default class ProvidersController {
 
     const providers = await listProviders.execute({ user_id });
 
-    const providersWithoutPassword = providers.map(provider => ({
-      id: provider.id,
-      name: provider.name,
-      email: provider.email,
-      avatar: provider.avatar,
-      created_at: provider.created_at,
-      updated_at: provider.updated_at,
-    }));
-
-    return response.json(providersWithoutPassword);
+    return response.json(classToClass(providers));
   }
 }
