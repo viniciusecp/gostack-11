@@ -20,7 +20,6 @@ export default class FakeCacheProvider implements ICacheProvider {
 
     const parsedData = JSON.parse(data) as T;
 
-    console.log('retorno do recover', parsedData);
     return parsedData;
   }
 

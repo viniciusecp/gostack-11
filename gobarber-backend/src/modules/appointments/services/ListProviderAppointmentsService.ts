@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
@@ -33,10 +34,7 @@ class ListProviderAppointmentsService {
       cacheKey,
     );
 
-    console.log('appointments', appointments);
-
     if (!appointments) {
-      console.log('entrou no IF');
       appointments = await this.appointmentsRepository.findAllInDayFromProvider(
         {
           provider_id,
@@ -46,7 +44,7 @@ class ListProviderAppointmentsService {
         },
       );
 
-      await this.cacheProvider.save(cacheKey, appointments);
+      await this.cacheProvider.save(cacheKey, classToClass(appointments));
     }
 
     return appointments;
